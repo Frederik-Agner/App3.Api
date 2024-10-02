@@ -1,6 +1,6 @@
-﻿using App3.Api.Data.Interface;
+﻿using Microsoft.AspNetCore.Mvc;
+using App3.Api.Data.Interface;
 using App3.Api.Models;
-using Microsoft.AspNetCore.Mvc;
 
 namespace App3.Api.Controllers;
 
@@ -16,7 +16,13 @@ public class UserController : ControllerBase {
     [HttpPost]
     public async Task<IActionResult> RegisterNewUser(User user) {
         try {
-            return Ok();
+            long Result = await _userRepo.RegisterNewUser(user);
+            if (Result != 0) {
+                return Ok(Result);
+            }
+            else {
+                return NotFound();
+            }
         }
         catch (Exception ex) {
             return BadRequest(ex.Message);

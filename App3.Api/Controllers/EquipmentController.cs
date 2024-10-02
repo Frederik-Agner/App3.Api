@@ -16,7 +16,13 @@ public class EquipmentController : ControllerBase {
     [HttpGet]
     public async Task<IActionResult> GetAllEquipment() {
         try {
-            return Ok();
+            List<Equipment> Result = await _equipRepo.GetAllEquipment();
+            if (Result != null) {
+                return Ok(Result);
+            }
+            else {
+                return NotFound();
+            }
         }
         catch (Exception ex) {
             return BadRequest(ex.Message);
@@ -26,7 +32,13 @@ public class EquipmentController : ControllerBase {
     [HttpPost]
     public async Task<IActionResult> RegisterNewEquipment(Equipment equipment) {
         try {
-            return Ok();
+            long Result = await _equipRepo.RegisterNewEquipment(equipment);
+            if (Result != 0) {
+                return Ok(Result);
+            }
+            else {
+                return NotFound();
+            }
         }
         catch (Exception ex) {
             return BadRequest(ex.Message);
