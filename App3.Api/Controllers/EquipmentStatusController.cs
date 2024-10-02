@@ -1,6 +1,6 @@
-﻿using App3.Api.Data.Interface;
+﻿using Microsoft.AspNetCore.Mvc;
+using App3.Api.Data.Interface;
 using App3.Api.Models;
-using Microsoft.AspNetCore.Mvc;
 
 namespace App3.Api.Controllers;
 

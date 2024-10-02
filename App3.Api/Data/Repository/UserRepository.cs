@@ -8,6 +8,11 @@ public class UserRepository : IUserRepository {
     private readonly DataAccess _dataAccess;
     private readonly ConnectionStringData _connectionString;
 
+    public UserRepository(DataAccess dataAccess, ConnectionStringData connectionString) {
+        _dataAccess = dataAccess;
+        _connectionString = connectionString;
+    }
+
     public async Task<long> RegisterNewUser(User user) {
         try {
             string tableName = "User";

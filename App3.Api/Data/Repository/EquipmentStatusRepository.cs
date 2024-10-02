@@ -8,6 +8,11 @@ public class EquipmentStatusRepository : IEquipmentStatusRepository {
     private readonly DataAccess _dataAccess;
     private readonly ConnectionStringData _connectionString;
 
+    public EquipmentStatusRepository(DataAccess dataAccess, ConnectionStringData connectionString) {
+        _dataAccess = dataAccess;
+        _connectionString = connectionString;
+    }
+
     public async Task<long> RentEquipment(EquipmentStatus equipmentStatus) {
         try {
             string tableName = "EquipmentStatus";

@@ -9,6 +9,6 @@ public class User {
 
 public enum Type {
     Admin,
-    Elev,
-    Underviser
+    Student, // Elev
+    Teacher // Underviser
 }
