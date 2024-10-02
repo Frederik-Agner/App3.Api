@@ -1,19 +1,20 @@
 ﻿using App3.Api.Data.Interface;
+using App3.Api.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace App3.Api.Controllers;
 
 [Route("API/[controller]/[action]")]
 [ApiController]
-public class DataController : ControllerBase {
-    private readonly IDataRepository _dataRepo;
+public class UserController : ControllerBase {
+    private readonly IUserRepository _userRepo;
 
-    public DataController(IDataRepository dataRepo) {
-        _dataRepo = dataRepo;
+    public UserController(IUserRepository userRepo) {
+        _userRepo = userRepo;
     }
 
-    [HttpGet]
-    public async Task<IActionResult> GetDataBySomething(string something) {
+    [HttpPost]
+    public async Task<IActionResult> RegisterNewUser(User user) {
         try {
             return Ok();
         }

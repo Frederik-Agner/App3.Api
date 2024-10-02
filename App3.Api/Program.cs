@@ -1,9 +1,20 @@
+using App3.Api.Data.DB;
+using App3.Api.Data.Interface;
+using App3.Api.Data.Repository;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+builder.Services.AddSingleton(new ConnectionStringData {
+    SqlConnectionName = "Default"
+});
+
+builder.Services.AddSingleton<DataAccess>();
+builder.Services.AddSingleton<IEquipmentRepository, EquipmentRepository>();
+
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
