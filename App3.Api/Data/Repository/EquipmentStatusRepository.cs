@@ -13,6 +13,34 @@ public class EquipmentStatusRepository : IEquipmentStatusRepository {
         _connectionString = connectionString;
     }
 
+    public async Task<List<Equipment>> GetEquipmentStatusByEquipmentId(long equipmentId) {
+        try {
+            string tableName = "Equipment";
+            string PGQuery =
+                $"SELECT * FROM \"{tableName}\" WHERE \"EquipmentId\" = '{equipmentId}'";
+            List<Equipment> result = await _dataAccess.LoadDataQuery<Equipment, dynamic>(PGQuery, _connectionString.SqlConnectionName);
+            if (result.Count > 0) return result;
+        }
+        catch (Exception ex) {
+            Console.WriteLine($"Error: {ex.Message}");
+        }
+        return null;
+    }
+
+    public async Task<List<Equipment>> GetEquipmentStatusByUserId(long userId) {
+        try {
+            string tableName = "Equipment";
+            string PGQuery =
+                $"SELECT * FROM \"{tableName}\" WHERE \"UserId\" = '{userId}'";
+            List<Equipment> result = await _dataAccess.LoadDataQuery<Equipment, dynamic>(PGQuery, _connectionString.SqlConnectionName);
+            if (result.Count > 0) return result;
+        }
+        catch (Exception ex) {
+            Console.WriteLine($"Error: {ex.Message}");
+        }
+        return null;
+    }
+
     public async Task<long> RentEquipment(EquipmentStatus equipmentStatus) {
         try {
             string tableName = "EquipmentStatus";

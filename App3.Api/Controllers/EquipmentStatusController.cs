@@ -13,6 +13,43 @@ public class EquipmentStatusController : ControllerBase {
         _equipStatusRepo = equipStatusRepo;
     }
 
+    [HttpGet]
+    public IActionResult TestConnection() {
+        return Ok("A Connection has been made");
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetEquipmentStatusByEquipmentId(long equipmentId) {
+        try {
+            List<Equipment> Result = await _equipStatusRepo.GetEquipmentStatusByEquipmentId(equipmentId);
+            if (Result != null) {
+                return Ok(Result);
+            }
+            else {
+                return NotFound();
+            }
+        }
+        catch (Exception ex) {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetEquipmentStatusByUserId(long userId) {
+        try {
+            List<Equipment> Result = await _equipStatusRepo.GetEquipmentStatusByUserId(userId);
+            if (Result != null) {
+                return Ok(Result);
+            }
+            else {
+                return NotFound();
+            }
+        }
+        catch (Exception ex) {
+            return BadRequest(ex.Message);
+        }
+    }
+
     [HttpPost]
     public async Task<IActionResult> RentEquipment(EquipmentStatus equipmentStatus) {
         try {
