@@ -11,12 +11,7 @@ public class EquipmentStatusController : ControllerBase {
 
     public EquipmentStatusController(IEquipmentStatusRepository equipStatusRepo) {
         _equipStatusRepo = equipStatusRepo;
-    }
-
-    [HttpGet]
-    public IActionResult TestConnection() {
-        return Ok("A Connection has been made");
-    }
+    }    
 
     [HttpGet]
     public async Task<IActionResult> GetEquipmentStatusByEquipmentId(long equipmentId) {

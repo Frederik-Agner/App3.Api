@@ -14,6 +14,11 @@ public class EquipmentController : ControllerBase {
     }
 
     [HttpGet]
+    public IActionResult TestConnection() {
+        return Ok("A Connection has been made");
+    }
+
+    [HttpGet]
     public async Task<IActionResult> GetAllEquipment() {
         try {
             List<Equipment> Result = await _equipRepo.GetAllEquipment();
