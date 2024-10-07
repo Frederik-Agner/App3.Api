@@ -11,14 +11,14 @@ public class EquipmentStatusRepository : IEquipmentStatusRepository {
     public EquipmentStatusRepository(DataAccess dataAccess, ConnectionStringData connectionString) {
         _dataAccess = dataAccess;
         _connectionString = connectionString;
-    }
+    }    
 
-    public async Task<List<Equipment>> GetEquipmentStatusByEquipmentId(long equipmentId) {
+    public async Task<List<EquipmentStatus>> GetEquipmentStatusByEquipmentId(long equipmentId) {
         try {
-            string tableName = "Equipment";
+            string tableName = "EquipmentStatus";
             string PGQuery =
                 $"SELECT * FROM \"{tableName}\" WHERE \"EquipmentId\" = '{equipmentId}'";
-            List<Equipment> result = await _dataAccess.LoadDataQuery<Equipment, dynamic>(PGQuery, _connectionString.SqlConnectionName);
+            List<EquipmentStatus> result = await _dataAccess.LoadDataQuery<EquipmentStatus, dynamic>(PGQuery, _connectionString.SqlConnectionName);
             if (result.Count > 0) return result;
         }
         catch (Exception ex) {
@@ -27,12 +27,26 @@ public class EquipmentStatusRepository : IEquipmentStatusRepository {
         return null;
     }
 
-    public async Task<List<Equipment>> GetEquipmentStatusByUserId(long userId) {
+    public async Task<List<EquipmentStatus>> GetEquipmentStatusByUserId(long userId) {
         try {
-            string tableName = "Equipment";
+            string tableName = "EquipmentStatus";
             string PGQuery =
                 $"SELECT * FROM \"{tableName}\" WHERE \"UserId\" = '{userId}'";
-            List<Equipment> result = await _dataAccess.LoadDataQuery<Equipment, dynamic>(PGQuery, _connectionString.SqlConnectionName);
+            List<EquipmentStatus> result = await _dataAccess.LoadDataQuery<EquipmentStatus, dynamic>(PGQuery, _connectionString.SqlConnectionName);
+            if (result.Count > 0) return result;
+        }
+        catch (Exception ex) {
+            Console.WriteLine($"Error: {ex.Message}");
+        }
+        return null;
+    }
+
+    public async Task<List<EquipmentStatus>> GetAllOpenStatus() {
+        try {
+            string tableName = "EquipmentStatus";
+            string PGQuery =
+                $"SELECT * FROM \"{tableName}\" WHERE \"Closed\" is null";
+            List<EquipmentStatus> result = await _dataAccess.LoadDataQuery<EquipmentStatus, dynamic>(PGQuery, _connectionString.SqlConnectionName);
             if (result.Count > 0) return result;
         }
         catch (Exception ex) {
@@ -45,8 +59,8 @@ public class EquipmentStatusRepository : IEquipmentStatusRepository {
         try {
             string tableName = "EquipmentStatus";
             string PGQuery =
-                $"INSERT INTO public.\"{tableName}\" (\"Date\", \"ReturnDate\", \"Status\", \"EquipmentId\", \"UserId\") " +
-                $"VALUES (@Date, @ReturnDate, @Status, @EquipmentId, @UserId) " +
+                $"INSERT INTO public.\"{tableName}\" (\"Date\", \"ReturnDate\", \"Status\", \"EquipmentId\", \"UserId\", \"Closed\") " +
+                $"VALUES (@Date, @ReturnDate, @Status, @EquipmentId, @UserId, @Closed) " +
                 "RETURNING \"Id\";";
             equipmentStatus.Id = await _dataAccess.SaveDataQuery(PGQuery, equipmentStatus, _connectionString.SqlConnectionName);
             return equipmentStatus.Id;
@@ -54,6 +68,21 @@ public class EquipmentStatusRepository : IEquipmentStatusRepository {
         catch (Exception ex) {
             Console.WriteLine($"Error: {ex.Message}");
             return 0;
+        }
+    }
+
+    public async Task<bool> UpdateEquipmentStatus(EquipmentStatus equipmentStatus) {
+        try {
+            string tableName = "EquipmentStatus";
+            string PGQuery =
+                $"UPDATE \"{tableName}\" SET \"ReturnDate\" = @ReturnDate, \"Status\" = @Status, \"Closed\" = @Closed " +
+                $"WHERE \"Id\" = '{equipmentStatus.Id}' RETURNING \"Id\";";
+            long result = await _dataAccess.SaveDataQuery(PGQuery, equipmentStatus, _connectionString.SqlConnectionName);
+            return true;
+        }
+        catch (Exception ex) {
+            Console.WriteLine($"Error: {ex.Message}");
+            return false;
         }
     }
 }

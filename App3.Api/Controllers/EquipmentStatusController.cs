@@ -16,7 +16,7 @@ public class EquipmentStatusController : ControllerBase {
     [HttpGet]
     public async Task<IActionResult> GetEquipmentStatusByEquipmentId(long equipmentId) {
         try {
-            List<Equipment> Result = await _equipStatusRepo.GetEquipmentStatusByEquipmentId(equipmentId);
+            List<EquipmentStatus> Result = await _equipStatusRepo.GetEquipmentStatusByEquipmentId(equipmentId);
             if (Result != null) {
                 return Ok(Result);
             }
@@ -32,7 +32,23 @@ public class EquipmentStatusController : ControllerBase {
     [HttpGet]
     public async Task<IActionResult> GetEquipmentStatusByUserId(long userId) {
         try {
-            List<Equipment> Result = await _equipStatusRepo.GetEquipmentStatusByUserId(userId);
+            List<EquipmentStatus> Result = await _equipStatusRepo.GetEquipmentStatusByUserId(userId);
+            if (Result != null) {
+                return Ok(Result);
+            }
+            else {
+                return NotFound();
+            }
+        }
+        catch (Exception ex) {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetAllOpenStatus() {
+        try {
+            List<EquipmentStatus> Result = await _equipStatusRepo.GetAllOpenStatus();
             if (Result != null) {
                 return Ok(Result);
             }
@@ -50,6 +66,22 @@ public class EquipmentStatusController : ControllerBase {
         try {
             long Result = await _equipStatusRepo.RentEquipment(equipmentStatus);
             if (Result != 0) {
+                return Ok(Result);
+            }
+            else {
+                return NotFound();
+            }
+        }
+        catch (Exception ex) {
+            return BadRequest(ex.Message);
+        }
+    }
+
+    [HttpPut]
+    public async Task<IActionResult> UpdateEquipmentStatus(EquipmentStatus equipmentStatus) {
+        try {
+            bool Result = await _equipStatusRepo.UpdateEquipmentStatus(equipmentStatus);
+            if (Result) {
                 return Ok(Result);
             }
             else {

@@ -5,6 +5,7 @@ public class EquipmentStatus {
     public DateTime Date { get; set; }
     public DateTime ReturnDate { get; set; }
     public Status Status { get; set; }
+    public DateTime? Closed { get; set; } = null;
     public long EquipmentId { get; set; } // Foreign Key
     public long UserId { get; set; } // Foreign Key
 }
