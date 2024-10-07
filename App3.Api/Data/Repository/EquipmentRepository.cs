@@ -42,4 +42,19 @@ public class EquipmentRepository : IEquipmentRepository {
             return 0;
         }
     }
+
+    public async Task<bool> UpdateEquipment(Equipment equipment) {
+        try {
+            string tableName = "Equipment";
+            string PGQuery =
+                $"UPDATE \"{tableName}\" SET \"Name\" = @Name, \"RetireDate\" = @RetireDate " +
+                $"WHERE \"Id\" = '{equipment.Id}' RETURNING \"Id\";";
+            long result = await _dataAccess.SaveDataQuery(PGQuery, equipment, _connectionString.SqlConnectionName);
+            return true;
+        }
+        catch (Exception ex) {
+            Console.WriteLine($"Error: {ex.Message}");
+            return false;
+        }
+    }
 }

@@ -49,4 +49,20 @@ public class EquipmentController : ControllerBase {
             return BadRequest(ex.Message);
         }
     }
+
+    [HttpPut]
+    public async Task<IActionResult> UpdateEquipment([FromBody] Equipment equipment) {
+        try {
+            bool Result = await _equipRepo.UpdateEquipment(equipment);
+            if (Result) {
+                return Ok(Result);
+            }
+            else {
+                return NotFound();
+            }
+        }
+        catch (Exception ex) {
+            return BadRequest(ex.Message);
+        }
+    }
 }

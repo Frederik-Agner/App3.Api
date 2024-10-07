@@ -45,10 +45,10 @@ public class UserRepository : IUserRepository {
 
     public async Task<bool> UpdateUser(User user) {
         try {
-            string tableName = "File";
+            string tableName = "User";
             string PGQuery =
                 $"UPDATE \"{tableName}\" SET \"Username\" = @Username, \"Password\" = @Password, \"Type\" = @Type " +
-                $"WHERE \"ID\" = '{user.Id}' RETURNING \"ID\";";
+                $"WHERE \"Id\" = '{user.Id}' RETURNING \"Id\";";
             long result = await _dataAccess.SaveDataQuery(PGQuery, user, _connectionString.SqlConnectionName);
             return true;
         }

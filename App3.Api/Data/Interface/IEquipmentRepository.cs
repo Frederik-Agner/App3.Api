@@ -5,4 +5,5 @@ namespace App3.Api.Data.Interface;
 public interface IEquipmentRepository {
     Task<List<Equipment>> GetAllEquipment();
     Task<long> RegisterNewEquipment(Equipment equipment);
+    Task<bool> UpdateEquipment(Equipment equipment);
 }
