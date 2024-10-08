@@ -14,9 +14,9 @@ public class EquipmentStatusController : ControllerBase {
     }    
 
     [HttpGet]
-    public async Task<IActionResult> GetEquipmentStatusByEquipmentId(long equipmentId) {
+    public async Task<IActionResult> GetByEquipmentId(long equipmentId) {
         try {
-            List<EquipmentStatus> Result = await _equipStatusRepo.GetEquipmentStatusByEquipmentId(equipmentId);
+            List<EquipmentStatus> Result = await _equipStatusRepo.GetByEquipmentId(equipmentId);
             if (Result != null) {
                 return Ok(Result);
             }
@@ -30,9 +30,9 @@ public class EquipmentStatusController : ControllerBase {
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetEquipmentStatusByUserId(long userId) {
+    public async Task<IActionResult> GetByUserId(long userId) {
         try {
-            List<EquipmentStatus> Result = await _equipStatusRepo.GetEquipmentStatusByUserId(userId);
+            List<EquipmentStatus> Result = await _equipStatusRepo.GetByUserId(userId);
             if (Result != null) {
                 return Ok(Result);
             }
@@ -78,9 +78,9 @@ public class EquipmentStatusController : ControllerBase {
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateEquipmentStatus(EquipmentStatus equipmentStatus) {
+    public async Task<IActionResult> Update(EquipmentStatus equipmentStatus) {
         try {
-            bool Result = await _equipStatusRepo.UpdateEquipmentStatus(equipmentStatus);
+            bool Result = await _equipStatusRepo.Update(equipmentStatus);
             if (Result) {
                 return Ok(Result);
             }

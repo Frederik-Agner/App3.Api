@@ -13,7 +13,7 @@ public class EquipmentRepository : IEquipmentRepository {
         _connectionString = connectionString;
     }
 
-    public async Task<List<Equipment>> GetAllEquipment() {
+    public async Task<List<Equipment>> GetAll() {
         try {
             string tableName = "Equipment";
             string PGQuery =
@@ -27,7 +27,7 @@ public class EquipmentRepository : IEquipmentRepository {
         return null;
     }
 
-    public async Task<long> RegisterNewEquipment(Equipment equipment) {
+    public async Task<long> Register(Equipment equipment) {
         try {
             string tableName = "Equipment";
             string PGQuery =
@@ -43,7 +43,7 @@ public class EquipmentRepository : IEquipmentRepository {
         }
     }
 
-    public async Task<bool> UpdateEquipment(Equipment equipment) {
+    public async Task<bool> Update(Equipment equipment) {
         try {
             string tableName = "Equipment";
             string PGQuery =

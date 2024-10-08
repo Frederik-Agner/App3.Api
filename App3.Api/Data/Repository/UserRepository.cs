@@ -13,7 +13,7 @@ public class UserRepository : IUserRepository {
         _connectionString = connectionString;
     }
 
-    public async Task<List<User>> GetAllUsers() {
+    public async Task<List<User>> GetAll() {
         try {
             string tableName = "User";
             string PGQuery =
@@ -27,7 +27,7 @@ public class UserRepository : IUserRepository {
         return null;
     }
 
-    public async Task<long> RegisterNewUser(User user) {
+    public async Task<long> Register(User user) {
         try {
             string tableName = "User";
             string PGQuery =
@@ -43,7 +43,7 @@ public class UserRepository : IUserRepository {
         }
     }
 
-    public async Task<bool> UpdateUser(User user) {
+    public async Task<bool> Update(User user) {
         try {
             string tableName = "User";
             string PGQuery =

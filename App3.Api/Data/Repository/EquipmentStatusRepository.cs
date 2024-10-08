@@ -13,7 +13,7 @@ public class EquipmentStatusRepository : IEquipmentStatusRepository {
         _connectionString = connectionString;
     }    
 
-    public async Task<List<EquipmentStatus>> GetEquipmentStatusByEquipmentId(long equipmentId) {
+    public async Task<List<EquipmentStatus>> GetByEquipmentId(long equipmentId) {
         try {
             string tableName = "EquipmentStatus";
             string PGQuery =
@@ -27,7 +27,7 @@ public class EquipmentStatusRepository : IEquipmentStatusRepository {
         return null;
     }
 
-    public async Task<List<EquipmentStatus>> GetEquipmentStatusByUserId(long userId) {
+    public async Task<List<EquipmentStatus>> GetByUserId(long userId) {
         try {
             string tableName = "EquipmentStatus";
             string PGQuery =
@@ -47,7 +47,7 @@ public class EquipmentStatusRepository : IEquipmentStatusRepository {
             string PGQuery =
                 $"SELECT * FROM \"{tableName}\" WHERE \"Closed\" is null";
             List<EquipmentStatus> result = await _dataAccess.LoadDataQuery<EquipmentStatus, dynamic>(PGQuery, _connectionString.SqlConnectionName);
-            if (result.Count > 0) return result;
+            if (result != null) return result;
         }
         catch (Exception ex) {
             Console.WriteLine($"Error: {ex.Message}");
@@ -71,7 +71,7 @@ public class EquipmentStatusRepository : IEquipmentStatusRepository {
         }
     }
 
-    public async Task<bool> UpdateEquipmentStatus(EquipmentStatus equipmentStatus) {
+    public async Task<bool> Update(EquipmentStatus equipmentStatus) {
         try {
             string tableName = "EquipmentStatus";
             string PGQuery =

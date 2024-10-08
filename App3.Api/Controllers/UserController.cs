@@ -15,9 +15,9 @@ public class UserController : ControllerBase {
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAllUsers() {
+    public async Task<IActionResult> GetAll() {
         try {
-            List<User> Result = await _userRepo.GetAllUsers();
+            List<User> Result = await _userRepo.GetAll();
             if (Result != null) {
                 return Ok(Result);
             }
@@ -31,9 +31,9 @@ public class UserController : ControllerBase {
     }
 
     [HttpPost]
-    public async Task<IActionResult> RegisterNewUser(User user) {
+    public async Task<IActionResult> Register(User user) {
         try {
-            long Result = await _userRepo.RegisterNewUser(user);
+            long Result = await _userRepo.Register(user);
             if (Result != 0) {
                 return Ok(Result);
             }
@@ -47,9 +47,9 @@ public class UserController : ControllerBase {
     }
 
     [HttpPut]
-    public async Task<IActionResult> ChangeUserRoles([FromBody] User user) {
+    public async Task<IActionResult> Update([FromBody] User user) {
         try {
-            bool Result = await _userRepo.UpdateUser(user);
+            bool Result = await _userRepo.Update(user);
             if (Result) {
                 return Ok(Result);
             }

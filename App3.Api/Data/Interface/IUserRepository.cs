@@ -3,7 +3,7 @@
 namespace App3.Api.Data.Interface;
 
 public interface IUserRepository {
-    Task<List<User>> GetAllUsers();
-    Task<long> RegisterNewUser(User user);
-    Task<bool> UpdateUser(User user);
+    Task<List<User>> GetAll();
+    Task<long> Register(User user);
+    Task<bool> Update(User user);
 }

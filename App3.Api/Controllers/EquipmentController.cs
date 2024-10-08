@@ -19,9 +19,9 @@ public class EquipmentController : ControllerBase {
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAllEquipment() {
+    public async Task<IActionResult> GetAll() {
         try {
-            List<Equipment> Result = await _equipRepo.GetAllEquipment();
+            List<Equipment> Result = await _equipRepo.GetAll();
             if (Result != null) {
                 return Ok(Result);
             }
@@ -35,9 +35,9 @@ public class EquipmentController : ControllerBase {
     }
 
     [HttpPost]
-    public async Task<IActionResult> RegisterNewEquipment(Equipment equipment) {
+    public async Task<IActionResult> Register(Equipment equipment) {
         try {
-            long Result = await _equipRepo.RegisterNewEquipment(equipment);
+            long Result = await _equipRepo.Register(equipment);
             if (Result != 0) {
                 return Ok(Result);
             }
@@ -51,9 +51,9 @@ public class EquipmentController : ControllerBase {
     }
 
     [HttpPut]
-    public async Task<IActionResult> UpdateEquipment([FromBody] Equipment equipment) {
+    public async Task<IActionResult> Update([FromBody] Equipment equipment) {
         try {
-            bool Result = await _equipRepo.UpdateEquipment(equipment);
+            bool Result = await _equipRepo.Update(equipment);
             if (Result) {
                 return Ok(Result);
             }
