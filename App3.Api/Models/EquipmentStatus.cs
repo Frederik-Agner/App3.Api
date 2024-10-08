@@ -12,7 +12,7 @@ public class EquipmentStatus {
 
 public enum StatusEnum {
     Returned,
-    Rented,
-    Rentable,
-    Reparation
+    Out,
+    Available,
+    Unavailable
 }

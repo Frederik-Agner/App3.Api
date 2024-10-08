@@ -17,7 +17,7 @@ public class EquipmentStatusRepository : IEquipmentStatusRepository {
         try {
             string tableName = "EquipmentStatus";
             string PGQuery =
-                $"SELECT * FROM \"{tableName}\" WHERE \"EquipmentId\" = '{equipmentId}'";
+                $"SELECT * FROM \"{tableName}\" WHERE \"EquipmentId\" = '{equipmentId}' AND \"Closed\" is null";
             List<EquipmentStatus> result = await _dataAccess.LoadDataQuery<EquipmentStatus, dynamic>(PGQuery, _connectionString.SqlConnectionName);
             if (result.Count > 0) return result;
         }
